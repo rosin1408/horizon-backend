@@ -13,6 +13,16 @@ services:
       - front-tier
       - back-tier
 
+  database:
+    image: horizon_database
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    ports:
+      - "5432:5432"
+    networks:
+      - back-tier
+
 networks:
   front-tier:
   back-tier:
