@@ -8,10 +8,11 @@ RUN mvn -B -f pom.xml -s /usr/share/maven/ref/settings-docker.xml dependency:res
 COPY . .
 RUN mvn -B -s /usr/share/maven/ref/settings-docker.xml package -DskipTests
 
-FROM openjdk:8-jdk-alpine as horizon_javaserver
+FROM openjdk:12-jdk-alpine as horizon_javaserver
 WORKDIR /app
 COPY --from=horizon_appserver /usr/src/horizonbackend/target/horizon-backend-1.0-SNAPSHOT.jar .
 #COPY /target/docker-spring-1.0-SNAPSHOT.jar .
 EXPOSE 5005
-ENTRYPOINT ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005","-jar", "/app/horizon-backend-1.0-SNAPSHOT.jar"]
+#ENTRYPOINT ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005","-jar", "/app/horizon-backend-1.0-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005","-jar", "/app/horizon-backend-1.0-SNAPSHOT.jar"]
 CMD ["--spring.profiles.active=postgres"]
