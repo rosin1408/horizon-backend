@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class HorizonBackendApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(HorizonBackendApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(HorizonBackendApplication.class, args);
+    }
 
 }

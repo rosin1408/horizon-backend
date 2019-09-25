@@ -2,6 +2,7 @@ package br.com.horizon.model;
 
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
 
 @Entity

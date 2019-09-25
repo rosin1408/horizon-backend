@@ -1,5 +1,6 @@
 package br.com.horizon.model;
 
+import br.com.horizon.model.audit.DateAudit;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
