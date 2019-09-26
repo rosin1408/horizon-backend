@@ -1,6 +1,7 @@
 package br.com.horizon.dto;
 
 public class JwtAuthenticationResponse {
+
     private String accessToken;
     private String tokenType = "Bearer";
 

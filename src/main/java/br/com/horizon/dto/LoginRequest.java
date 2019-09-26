@@ -1,8 +1,7 @@
 package br.com.horizon.dto;
 
-import lombok.Getter;
-
 import javax.validation.constraints.NotBlank;
+import lombok.Getter;
 
 @Getter
 public class LoginRequest {
