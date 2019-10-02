@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MailSender {
 
-    private static final String API_KEY = "de8c97cb282da488abee3c5413c3299a-baa55c84-9ef0a34c";
+    private static final String API_KEY = "40d96c61723930660f337e317b40c826";
     private static final String DOMAIN_NAME = "sandbox15d801020ea5484e931a6cfa1f86a4c5.mailgun.org";
 
     @Autowired
