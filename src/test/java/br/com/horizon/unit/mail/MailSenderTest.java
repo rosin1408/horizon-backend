@@ -1,4 +1,4 @@
-package br.com.horizon.mail;
+package br.com.horizon.unit.mail;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.any;

@@ -4,6 +4,7 @@ import br.com.horizon.model.User;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -20,4 +21,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByUsername(String username);
 
     Boolean existsByEmail(String email);
+
+    @Query("select u from User u where (u.username = ?1 or u.email = ?1) and u.blocked = false")
+    Optional<User> findUserToLogin(String username);
 }

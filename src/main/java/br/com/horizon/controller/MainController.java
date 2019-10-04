@@ -9,16 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MainController {
 
-    @GetMapping("/home")
-    public String home() {
-        return "Agora só falta atualizar os códigos né";
-    }
-
-    @GetMapping("/test")
-    public String test() {
-        return "Testand o testando testando";
-    }
-
     @GetMapping("/api/user/me")
     public String quemSouEu(@CurrentUser UserPrincipal currentUser) {
         return "Seu nome é: " + currentUser.getName();

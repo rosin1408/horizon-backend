@@ -4,6 +4,7 @@ import br.com.horizon.dto.ApiResponse;
 import br.com.horizon.dto.JwtAuthenticationResponse;
 import br.com.horizon.dto.LoginRequest;
 import br.com.horizon.dto.SignUpRequest;
+import br.com.horizon.model.User;
 import br.com.horizon.repository.UserRepository;
 import br.com.horizon.security.JwtTokenProvider;
 import br.com.horizon.service.AuthService;
@@ -21,11 +22,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -44,7 +45,7 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<JwtAuthenticationResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmail(),
                                                                                                                    loginRequest.getPassword()));
@@ -56,7 +57,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest)
+    public ResponseEntity<ApiResponse> registerUser(@Valid @RequestBody SignUpRequest signUpRequest)
         throws InterruptedException, IOException, URISyntaxException {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return new ResponseEntity(new ApiResponse(false, "Username is already taken!"), HttpStatus.BAD_REQUEST);
@@ -65,15 +66,17 @@ public class AuthController {
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"), HttpStatus.BAD_REQUEST);
         }
-        URI location = authService.createUsersAccount(signUpRequest);
+        User user = authService.createUsersAccount(signUpRequest);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/users/{username}").buildAndExpand(user.getUsername()).toUri();
 
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
     }
 
     @GetMapping("/confirm_mail")
-    public ResponseEntity<?> confirmEmail(@ModelAttribute("tk") String tk) {
+    public ResponseEntity<ApiResponse> confirmEmail(@ModelAttribute("tk") String tk) {
         boolean confirmado = authService.confirmEmail(tk);
 
-        return ResponseEntity.of(Optional.of(new ApiResponse(true, "Email confirmado")));
+        return ResponseEntity.of(Optional.of(new ApiResponse(confirmado, "Email confirmado")));
     }
 }

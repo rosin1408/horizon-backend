@@ -3,6 +3,7 @@ package br.com.horizon.service;
 import br.com.horizon.dto.SignUpRequest;
 import br.com.horizon.email.MailSender;
 import br.com.horizon.exception.AppException;
+import br.com.horizon.exception.BadRequestException;
 import br.com.horizon.model.Role;
 import br.com.horizon.model.RoleName;
 import br.com.horizon.model.User;
@@ -10,16 +11,13 @@ import br.com.horizon.model.UserToken;
 import br.com.horizon.repository.RoleRepository;
 import br.com.horizon.repository.UserRepository;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.Optional;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AuthService {
@@ -37,9 +35,13 @@ public class AuthService {
     private UserTokenService userTokenService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private MailSender mailSender;
 
-    public URI createUsersAccount(@RequestBody @Valid SignUpRequest signUpRequest) throws InterruptedException, IOException, URISyntaxException {
+    @Transactional
+    public User createUsersAccount(SignUpRequest signUpRequest) throws InterruptedException, IOException, URISyntaxException {
         // Creating user's account
         User user = new User(signUpRequest.getName(), signUpRequest.getUsername(), signUpRequest.getEmail(), signUpRequest.getPassword());
 
@@ -51,9 +53,9 @@ public class AuthService {
 
         User result = userRepository.save(user);
 
-        saveUserTokenAndSendEmail(user);
+        saveUserTokenAndSendEmail(result);
 
-        return ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/users/{username}").buildAndExpand(result.getUsername()).toUri();
+        return result;
     }
 
     private void saveUserTokenAndSendEmail(User user) {
@@ -67,11 +69,7 @@ public class AuthService {
                           .subject("Confirmação de email")
                           .html(htmlEmail.replace("${TOKEN}", userToken.getUuid()))
                           .send();
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (URISyntaxException | IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         };
@@ -79,9 +77,17 @@ public class AuthService {
         sendMail.run();
     }
 
-    public boolean confirmEmail(String tk) {
-        Optional<UserToken> userTokenByUuid = userTokenService.findUserTokenByUuid(tk);
+    @Transactional
+    public boolean confirmEmail(String tk) throws BadRequestException {
+        Optional<UserToken> userTokenOpt = userTokenService.findUserTokenByUuid(tk);
 
-        return userTokenByUuid.isPresent();
+        userTokenOpt.ifPresentOrElse(userToken -> {
+            userTokenService.useToken(userToken);
+            userService.unblockUser(userToken.getUser());
+        }, () -> {
+            throw new BadRequestException("Invalid token");
+        });
+
+        return userTokenOpt.isPresent();
     }
 }

@@ -1,4 +1,4 @@
-package br.com.horizon.mail;
+package br.com.horizon.unit.mail;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

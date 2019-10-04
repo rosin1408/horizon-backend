@@ -3,6 +3,7 @@ WORKDIR /usr/src/horizonbackend
 VOLUME $PWD:/usr/src/mymaven
 VOLUME $HOME/.m2:/root/.m2
 VOLUME $PWD/target:/usr/src/mymaven/target
+RUN rm -Rf /usr/src/horizonbackend/*
 COPY pom.xml .
 RUN mvn -B -f pom.xml -s /usr/share/maven/ref/settings-docker.xml dependency:go-offline
 COPY . .

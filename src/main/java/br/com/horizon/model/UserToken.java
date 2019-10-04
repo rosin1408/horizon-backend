@@ -1,6 +1,7 @@
 package br.com.horizon.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +28,7 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "users_tokens")
 public class UserToken implements Serializable  {
@@ -34,7 +37,7 @@ public class UserToken implements Serializable  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false, targetEntity = User.class)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
     private User user;
 
@@ -45,4 +48,8 @@ public class UserToken implements Serializable  {
     @Enumerated(EnumType.STRING)
     @Column(name = "token_type")
     private TokenType tokenType;
+
+    @NotNull
+    @Column(name="valid_at")
+    private LocalDateTime validAt;
 }
