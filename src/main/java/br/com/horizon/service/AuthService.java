@@ -10,9 +10,11 @@ import br.com.horizon.model.User;
 import br.com.horizon.model.UserToken;
 import br.com.horizon.repository.RoleRepository;
 import br.com.horizon.repository.UserRepository;
+import br.com.horizon.velocity.VelocityCompiler;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,6 +42,9 @@ public class AuthService {
     @Autowired
     private MailSender mailSender;
 
+    @Autowired
+    private VelocityCompiler velocityCompiler;
+
     @Transactional
     public User createUsersAccount(SignUpRequest signUpRequest) throws InterruptedException, IOException, URISyntaxException {
         // Creating user's account
@@ -62,12 +67,12 @@ public class AuthService {
         UserToken userToken = userTokenService.createUserTokenConfirm(user);
 
         Runnable sendMail = () -> {
-            var htmlEmail = "<a href=\"http://localhost:8080/auth/confirm?tk=${TOKEN}\">Confirmar e-mail</a>";
+            var htmlEmail = velocityCompiler.compile("email/email_confirm.vm", Map.of("user", userToken));
             try {
                 mailSender.from("rosin1408@gmail.com")
                           .to(user.getEmail())
                           .subject("Confirmação de email")
-                          .html(htmlEmail.replace("${TOKEN}", userToken.getUuid()))
+                          .html(htmlEmail)
                           .send();
             } catch (URISyntaxException | IOException | InterruptedException e) {
                 e.printStackTrace();

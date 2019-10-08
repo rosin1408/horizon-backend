@@ -16,4 +16,4 @@ COPY --from=horizon_appserver /usr/src/horizonbackend/target/horizon-backend-1.0
 EXPOSE 5005
 ENTRYPOINT ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005","-jar", "/app/horizon-backend-1.0-SNAPSHOT.jar"]
 #ENTRYPOINT ["java", "-jar", "/app/horizon-backend-1.0-SNAPSHOT.jar"]
-CMD ["--spring.profiles.active=postgres"]
+CMD ["--spring.profiles.active=docker"]

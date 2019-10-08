@@ -1,0 +1,7 @@
+#parse("templates/email/header.vm")
+
+<p>Seja bem vindo ao Meu Horário na Web, o seu app para agendamentos de horários</p>
+
+<p>Para sua segurança, precisamos confirmar o seu e-mail antes de ativar a sua conta, por favor, clique <a href="http://localhost:8080/auth/confirm?tk=$user.uuid">aqui</a>.</p>
+
+#parse("templates/email/footer.vm")
