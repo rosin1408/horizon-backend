@@ -3,6 +3,7 @@ package br.com.horizon.unit.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyMap;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
@@ -20,6 +21,7 @@ import br.com.horizon.repository.UserRepository;
 import br.com.horizon.service.AuthService;
 import br.com.horizon.service.UserService;
 import br.com.horizon.service.UserTokenService;
+import br.com.horizon.velocity.VelocityCompiler;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Optional;
@@ -53,6 +55,8 @@ public class AuthServiceTest {
     private UserService userService;
     @Mock
     private MailSender mailSender;
+    @Mock
+    private VelocityCompiler velocityCompiler;
     @InjectMocks
     private AuthService authService;
 
@@ -79,7 +83,7 @@ public class AuthServiceTest {
 
     @BeforeEach
     public void mockUserToken() {
-        when(userTokenService.createUserTokenConfirm(userAccount)).thenReturn(UserToken.builder().uuid("user_token_uuid").build());
+        when(userTokenService.createUserTokenConfirm(userAccount)).thenReturn(UserToken.builder().user(userAccount).uuid("user_token_uuid").build());
     }
 
     @BeforeEach
@@ -123,6 +127,26 @@ public class AuthServiceTest {
     }
 
     @Test
+    public void shouldSendEmailWithHtmlFromTemplate() throws InterruptedException, IOException, URISyntaxException {
+        var userData = SignUpRequest.builder().email("user@email.com").name("User Name").username("username").password(USER_PASSWORD).build();
+
+        when(velocityCompiler.compile(anyString(), anyMap())).thenReturn("Returned String from template");
+        userAccount = authService.createUsersAccount(userData);
+
+        verify(mailSender).html("Returned String from template");
+    }
+
+    @Test
+    public void shouldSendEmailWithUserData() throws InterruptedException, IOException, URISyntaxException {
+        var userData = SignUpRequest.builder().email("user@email.com").name("User Name").username("username").password(USER_PASSWORD).build();
+        when(userRepository.save(any(User.class))).thenReturn(userAccount);
+
+        userAccount = authService.createUsersAccount(userData);
+
+        verify(mailSender).to(userAccount.getEmail());
+    }
+
+    @Test
     public void shouldConfirmEmail() {
         User user = User.builder().build();
         UserToken userToken = UserToken.builder().user(user).build();
@@ -159,5 +183,15 @@ public class AuthServiceTest {
         doReturn(Optional.empty()).when(userTokenService).findUserTokenByUuid(anyString());
 
         org.junit.jupiter.api.Assertions.assertThrows(BadRequestException.class, () -> authService.confirmEmail(""));
+    }
+
+    @Test
+    public void shouldNotThrowsExceptionWhenExceptionOnMailSender() throws InterruptedException, IOException, URISyntaxException {
+        when(mailSender.send()).thenThrow(IOException.class);
+
+        var userData = SignUpRequest.builder().email("user@email.com").name("User Name").username("username").password(USER_PASSWORD).build();
+
+
+        Assertions.assertThatCode(() -> authService.createUsersAccount(userData)).doesNotThrowAnyException();
     }
 }

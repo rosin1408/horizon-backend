@@ -84,7 +84,7 @@ public class MailSenderTest {
 
     @Test
     public void shouldBuildUrlWithDomainName() throws InterruptedException, IOException, URISyntaxException {
-        mailSender.from("rosin1408@gmail.com").to("rosin1408@gmail.com").subject("assunto").text("texto do email!@#$%*()").send();
+        mailSender.from("rosin1408@gmail.com").to("rosin1408@gmail.com").cc("roberto.souza@gmail.com").subject("assunto").html("texto do email!@#$%*()").send();
 
         verify(httpRequestBuilder, only()).build(any(URI.class), anyString(), anyString());
     }

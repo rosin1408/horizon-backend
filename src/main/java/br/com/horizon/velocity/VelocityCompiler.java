@@ -14,8 +14,6 @@ import org.springframework.stereotype.Component;
 public class VelocityCompiler {
 
     @Autowired
-    private VelocityEngineBuilder engineBuilder;
-    @Autowired
     private VelocityEngine engine;
     @Autowired
     private VelocityContextBuilder contextBuilder;

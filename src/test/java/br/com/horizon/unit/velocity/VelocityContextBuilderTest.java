@@ -22,11 +22,9 @@ public class VelocityContextBuilderTest {
 
     @Test
     public void shouldBuildTemplateWithParams() {
-        builder.build();
         VelocityContext context = builder.params(new HashMap<>()).build();
 
         assertThat(context).isNotNull();
-
     }
 
     @Test
@@ -41,6 +39,6 @@ public class VelocityContextBuilderTest {
 
     @Test
     public void shouldNotBuildContextWithNoParams() {
-        assertThatThrownBy(() -> builder.build()).hasCauseInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> builder.build());
     }
 }

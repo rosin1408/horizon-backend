@@ -16,7 +16,7 @@ public class VelocityContextBuilder {
     }
 
     public VelocityContext build() {
-        return new VelocityContext(Objects.requireNonNull(params));
+        return new VelocityContext(Objects. requireNonNull(params));
     }
 
 }

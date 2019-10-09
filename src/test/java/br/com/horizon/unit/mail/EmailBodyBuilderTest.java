@@ -33,6 +33,18 @@ public class EmailBodyBuilderTest {
     }
 
     @Test
+    public void shouldBuildBodyWithCC() {
+        String body = bodyBuilder.from("rosin1408@gmail.com")
+                                 .to("rosin1408@gmail.com")
+                                 .cc("roberto.souza@gmail.com")
+                                 .subject("assunto")
+                                 .html("texto do email")
+                                 .build();
+
+        assertEquals("from=rosin1408%40gmail.com&to=rosin1408%40gmail.com&cc=roberto.souza%40gmail.com&subject=assunto&html=texto+do+email", body);
+    }
+
+    @Test
     public void shouldThrowsExceptionWhenFromIsEmpty() {
         AppException exception = assertThrows(AppException.class, () -> bodyBuilder.build());
 
