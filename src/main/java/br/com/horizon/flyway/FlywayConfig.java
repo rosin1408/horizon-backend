@@ -1,7 +1,6 @@
 package br.com.horizon.flyway;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import javax.sql.DataSource;
 import org.flywaydb.core.Flyway;

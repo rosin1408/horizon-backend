@@ -48,7 +48,11 @@ public class AuthService {
     @Transactional
     public User createUsersAccount(SignUpRequest signUpRequest) throws InterruptedException, IOException, URISyntaxException {
         // Creating user's account
-        User user = new User(signUpRequest.getName(), signUpRequest.getUsername(), signUpRequest.getEmail(), signUpRequest.getPassword());
+        User user = new User(signUpRequest.getName(),
+                             signUpRequest.getUsername(),
+                             signUpRequest.getEmail(),
+                             signUpRequest.getPassword(),
+                             signUpRequest.getClientId());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
@@ -69,11 +73,7 @@ public class AuthService {
         Runnable sendMail = () -> {
             var htmlEmail = velocityCompiler.compile("email/email_confirm.vm", Map.of("user", userToken));
             try {
-                mailSender.from("rosin1408@gmail.com")
-                          .to(user.getEmail())
-                          .subject("Confirmação de email")
-                          .html(htmlEmail)
-                          .send();
+                mailSender.from("rosin1408@gmail.com").to(user.getEmail()).subject("Confirmação de email").html(htmlEmail).send();
             } catch (URISyntaxException | IOException | InterruptedException e) {
                 e.printStackTrace();
             }
