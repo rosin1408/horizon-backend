@@ -4,4 +4,4 @@ create table clients (
 	tenant varchar not null
 );
 
-alter table users add column client_id bigint references clients (id) not null;
+alter table users add column client_id bigint references clients (id);

@@ -1,4 +1,6 @@
-create table prestador (
+create table services (
   id serial not null primary key,
-  nome varchar not null
+  name varchar not null,
+  description varchar,
+  duration SMALLINT not null
 )
