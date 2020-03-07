@@ -63,7 +63,7 @@ public class User implements Serializable {
     private Set<Role> roles = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "client_id", nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "client_id", nullable = true, referencedColumnName = "id")
     private Client client;
 
     public User(String name, String username, String email, String password, Long clientId) {
@@ -74,5 +74,12 @@ public class User implements Serializable {
 
         Client client = Client.builder().id(clientId).build();
         this.client = client;
+    }
+
+    public User(String name, String username, String email, String password) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
     }
 }
