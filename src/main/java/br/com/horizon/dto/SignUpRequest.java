@@ -31,6 +31,5 @@ public class SignUpRequest {
     @Size(min = 6, max = 20)
     private String password;
 
-    @NotNull
     private Long clientId;
 }

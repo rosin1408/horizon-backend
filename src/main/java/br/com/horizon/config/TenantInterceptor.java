@@ -12,7 +12,7 @@ public class TenantInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        String tennantName = request.getHeader("tennant-name");
+        String tennantName = request.getHeader("tenant-name");
 
         TenantContext.setTenantSchema(tennantName);
 

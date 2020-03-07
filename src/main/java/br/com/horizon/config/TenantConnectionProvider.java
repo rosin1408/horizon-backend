@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class TenantConnectionProvider implements MultiTenantConnectionProvider {
 
-    private String DEFAULT_TENANT = "public";
     private DataSource datasource;
 
     public TenantConnectionProvider(DataSource dataSource) {
@@ -35,6 +34,7 @@ public class TenantConnectionProvider implements MultiTenantConnectionProvider {
 
     @Override
     public void releaseConnection(String s, Connection connection) throws SQLException {
+        String DEFAULT_TENANT = "public";
         connection.setSchema(DEFAULT_TENANT);
         releaseAnyConnection(connection);
     }
