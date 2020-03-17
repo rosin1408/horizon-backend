@@ -1,6 +1,6 @@
 package br.com.horizon.integration.repository;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import br.com.horizon.model.Role;
 import br.com.horizon.model.RoleName;
@@ -13,7 +13,6 @@ import br.com.horizon.repository.UserTokenRepository;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Optional;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

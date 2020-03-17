@@ -1,6 +1,5 @@
 package br.com.horizon.model;
 
-import java.io.Serializable;
 import java.time.LocalTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,14 +15,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
 @Setter
-@Entity
 @Table(name = "commercial_places")
-public class CommercialPlace implements Serializable {
+public class CommercialPlace implements DefaultEntity {
+
     private static final long serialVersionUID = 8941274233968440041L;
 
     @Id

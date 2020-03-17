@@ -1,6 +1,5 @@
 package br.com.horizon.model;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,14 +13,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
 @Setter
-@Entity
 @Table(name = "services")
-public class Service implements Serializable  {
+public class Service implements DefaultEntity {
 
     private static final long serialVersionUID = -1197289622891299477L;
 

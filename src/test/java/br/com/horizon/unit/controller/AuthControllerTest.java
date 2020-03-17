@@ -2,9 +2,9 @@ package br.com.horizon.unit.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import br.com.horizon.controller.AuthController;
 import br.com.horizon.dto.ApiResponse;
 import br.com.horizon.service.AuthService;
-import br.com.horizon.controller.AuthController;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

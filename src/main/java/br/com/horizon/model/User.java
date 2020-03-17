@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
@@ -33,6 +32,8 @@ import org.hibernate.annotations.NaturalId;
 @Builder
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"}), @UniqueConstraint(columnNames = {"email"})})
 public class User implements Serializable {
+
+    private static final long serialVersionUID = 6928570599639071224L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

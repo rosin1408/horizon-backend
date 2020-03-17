@@ -6,12 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ClientService {
+public class ClientService extends DefaultService<Client> {
 
     @Autowired
-    private ClientRepository repository;
-
-    public Client save(Client client) {
-        return repository.save(client);
+    public ClientService(ClientRepository repository) {
+        super(repository);
     }
+
 }

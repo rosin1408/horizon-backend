@@ -20,7 +20,9 @@ import lombok.Setter;
 @Setter
 @Builder
 @Table(name = "clients", schema = "public")
-public class Client {
+public class Client implements DefaultEntity {
+
+    private static final long serialVersionUID = 925456280570471143L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
