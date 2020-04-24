@@ -1,11 +1,14 @@
 package br.com.horizon.config;
 
+import static org.hibernate.cfg.AvailableSettings.MULTI_TENANT;
+import static org.hibernate.cfg.AvailableSettings.MULTI_TENANT_CONNECTION_PROVIDER;
+import static org.hibernate.cfg.AvailableSettings.MULTI_TENANT_IDENTIFIER_RESOLVER;
+
 import br.com.horizon.HorizonBackendApplication;
 import java.util.HashMap;
 import java.util.Map;
 import javax.sql.DataSource;
 import org.hibernate.MultiTenancyStrategy;
-import org.hibernate.cfg.Environment;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +41,9 @@ public class HibernateConfig {
         em.setJpaVendorAdapter(this.jpaVendorAdapter());
 
         Map<String, Object> jpaPropertiesMap = new HashMap<>(jpaProperties.getProperties());
-        jpaPropertiesMap.put(Environment.MULTI_TENANT, MultiTenancyStrategy.SCHEMA);
-        jpaPropertiesMap.put(Environment.MULTI_TENANT_CONNECTION_PROVIDER, multiTenantConnectionProvider);
-        jpaPropertiesMap.put(Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, tenantIdentifierResolver);
+        jpaPropertiesMap.put(MULTI_TENANT, MultiTenancyStrategy.SCHEMA);
+        jpaPropertiesMap.put(MULTI_TENANT_CONNECTION_PROVIDER, multiTenantConnectionProvider);
+        jpaPropertiesMap.put(MULTI_TENANT_IDENTIFIER_RESOLVER, tenantIdentifierResolver);
         em.setJpaPropertyMap(jpaPropertiesMap);
 
         return em;

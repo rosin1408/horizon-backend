@@ -9,7 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class TenantConnectionProvider implements MultiTenantConnectionProvider {
 
-    private DataSource datasource;
+    private static final long serialVersionUID = -4747994752753257785L;
+
+    private transient DataSource datasource;
 
     public TenantConnectionProvider(DataSource dataSource) {
         this.datasource = dataSource;
@@ -34,8 +36,8 @@ public class TenantConnectionProvider implements MultiTenantConnectionProvider {
 
     @Override
     public void releaseConnection(String s, Connection connection) throws SQLException {
-        String DEFAULT_TENANT = "public";
-        connection.setSchema(DEFAULT_TENANT);
+        String defaultTenant = "public";
+        connection.setSchema(defaultTenant);
         releaseAnyConnection(connection);
     }
 

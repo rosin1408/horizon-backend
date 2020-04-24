@@ -15,9 +15,8 @@ public class TenantSchemaResolver implements CurrentTenantIdentifierResolver {
 
         if (tenant != null) {
             return tenant;
-        } else {
-            return DEFAULT_SCHEMA;
         }
+        return DEFAULT_SCHEMA;
     }
 
     @Override

@@ -30,6 +30,7 @@ public class Service implements DefaultEntity {
 
     @NotBlank
     private String name;
+
     private String description;
 
     /**
