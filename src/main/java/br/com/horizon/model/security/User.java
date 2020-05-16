@@ -1,5 +1,6 @@
-package br.com.horizon.model;
+package br.com.horizon.model.security;
 
+import br.com.horizon.model.Client;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
