@@ -3,7 +3,7 @@ package br.com.horizon.config;
 
 import br.com.horizon.security.JwtAuthenticationEntryPoint;
 import br.com.horizon.security.JwtAuthenticationFilter;
-import br.com.horizon.service.CustomUserDetailsService;
+import br.com.horizon.service.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

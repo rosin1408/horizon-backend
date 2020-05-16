@@ -1,7 +1,7 @@
-package br.com.horizon.repository;
+package br.com.horizon.repository.security;
 
-import br.com.horizon.model.Role;
-import br.com.horizon.model.RoleName;
+import br.com.horizon.model.security.Role;
+import br.com.horizon.model.security.RoleName;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

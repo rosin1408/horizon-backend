@@ -4,11 +4,11 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.verify;
 
-import br.com.horizon.model.TokenType;
-import br.com.horizon.model.User;
-import br.com.horizon.model.UserToken;
-import br.com.horizon.repository.UserTokenRepository;
-import br.com.horizon.service.UserTokenService;
+import br.com.horizon.model.security.TokenType;
+import br.com.horizon.model.security.User;
+import br.com.horizon.model.security.UserToken;
+import br.com.horizon.repository.security.UserTokenRepository;
+import br.com.horizon.service.service.UserTokenService;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

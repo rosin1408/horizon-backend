@@ -1,4 +1,4 @@
-package br.com.horizon.model;
+package br.com.horizon.model.security;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

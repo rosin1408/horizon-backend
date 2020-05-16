@@ -2,9 +2,9 @@ package br.com.horizon.unit.service;
 
 import static org.mockito.Mockito.verify;
 
-import br.com.horizon.model.User;
-import br.com.horizon.repository.UserRepository;
-import br.com.horizon.service.UserService;
+import br.com.horizon.model.security.User;
+import br.com.horizon.repository.security.UserRepository;
+import br.com.horizon.service.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

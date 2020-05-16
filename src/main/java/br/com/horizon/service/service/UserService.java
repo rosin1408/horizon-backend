@@ -1,7 +1,7 @@
-package br.com.horizon.service;
+package br.com.horizon.service.service;
 
-import br.com.horizon.model.User;
-import br.com.horizon.repository.UserRepository;
+import br.com.horizon.model.security.User;
+import br.com.horizon.repository.security.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

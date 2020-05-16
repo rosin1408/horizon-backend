@@ -1,6 +1,6 @@
-package br.com.horizon.repository;
+package br.com.horizon.repository.security;
 
-import br.com.horizon.model.User;
+import br.com.horizon.model.security.User;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

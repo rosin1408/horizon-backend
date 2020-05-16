@@ -1,15 +1,15 @@
-package br.com.horizon.service;
+package br.com.horizon.service.service;
 
 import br.com.horizon.dto.SignUpRequest;
 import br.com.horizon.email.MailSender;
 import br.com.horizon.exception.AppException;
 import br.com.horizon.exception.BadRequestException;
-import br.com.horizon.model.Role;
-import br.com.horizon.model.RoleName;
-import br.com.horizon.model.User;
-import br.com.horizon.model.UserToken;
-import br.com.horizon.repository.RoleRepository;
-import br.com.horizon.repository.UserRepository;
+import br.com.horizon.model.security.Role;
+import br.com.horizon.model.security.RoleName;
+import br.com.horizon.model.security.User;
+import br.com.horizon.model.security.UserToken;
+import br.com.horizon.repository.security.RoleRepository;
+import br.com.horizon.repository.security.UserRepository;
 import br.com.horizon.velocity.VelocityCompiler;
 import java.io.IOException;
 import java.net.URISyntaxException;

@@ -1,6 +1,6 @@
 package br.com.horizon.security;
 
-import br.com.horizon.service.CustomUserDetailsService;
+import br.com.horizon.service.service.CustomUserDetailsService;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

@@ -1,6 +1,6 @@
-package br.com.horizon.repository;
+package br.com.horizon.repository.security;
 
-import br.com.horizon.model.UserToken;
+import br.com.horizon.model.security.UserToken;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -41,7 +41,7 @@ public abstract class DefaultController<T extends DefaultEntity> {
 
     @GetMapping
     public Page<T> list(int page, int size) {
-        return this.service.all(PageRequest.of(page - 1, size    ));
+        return this.service.all(PageRequest.of(page, size    ));
     }
 
     @GetMapping("/{id}")

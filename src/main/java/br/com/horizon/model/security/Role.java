@@ -1,4 +1,4 @@
-package br.com.horizon.model;
+package br.com.horizon.model.security;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

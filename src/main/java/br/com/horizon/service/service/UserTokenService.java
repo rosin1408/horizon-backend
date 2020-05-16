@@ -1,9 +1,9 @@
-package br.com.horizon.service;
+package br.com.horizon.service.service;
 
-import br.com.horizon.model.TokenType;
-import br.com.horizon.model.User;
-import br.com.horizon.model.UserToken;
-import br.com.horizon.repository.UserTokenRepository;
+import br.com.horizon.model.security.TokenType;
+import br.com.horizon.model.security.User;
+import br.com.horizon.model.security.UserToken;
+import br.com.horizon.repository.security.UserTokenRepository;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
